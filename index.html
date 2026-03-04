@@ -126,7 +126,7 @@
       position: relative; overflow: hidden;
     }
     .player-card::before {
-      content: 'Dooron Dooron (Official Video) - Paresh Pahuja Feat. Harleen Sethi _ Shiv _ Meghdeep _ Vaibhav.mp3';
+      content: '';
       position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(244,160,184,0.04), rgba(201,168,232,0.04));
       pointer-events: none;
@@ -330,12 +330,9 @@
           <button class="btn-play" id="playBtn" onclick="togglePlay()">
             <svg viewBox="0 0 24 24"><path id="playIcon" d="M8 5v14l11-7z"/></svg>
           </button>
-          <label class="load-label" title="Load mp3">
-            ↑ load mp3
-            <input type="file" accept="audio/*" style="display:none" onchange="loadFile(event)"/>
-          </label>
+
         </div>
-        <p class="upload-hint">click <span>↑ load mp3</span> to add the song</p>
+
       </div>
     </div>
 
@@ -389,7 +386,9 @@
     requestAnimationFrame(drawStars);
 
     // Audio
-    const audio = new Audio();
+    // 🎵 Put your MP3 filename here (keep the file in the same folder as this HTML)
+    const SONG_PATH = "doroon-dooron.mp3";
+    const audio = new Audio(SONG_PATH);
     audio.volume = 0.8;
     let playing = false;
     const disc      = document.getElementById('disc');
@@ -436,17 +435,6 @@
 
     function setVol(v) { audio.volume = v; }
 
-    function loadFile(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      audio.src = URL.createObjectURL(file);
-      audio.load();
-      audio.play().then(() => {
-        disc.classList.add('spinning');
-        iconPath.setAttribute('d', PAUSE);
-        playing = true;
-      }).catch(() => {});
-    }
   </script>
 </body>
 </html>
